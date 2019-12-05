@@ -18,6 +18,7 @@ class Game {
 
 	private:
 		bool isRunning;
+		int ticksSinceLastFrame;
 		SDL_Window *window;
 		SDL_Renderer *renderer;
 };
