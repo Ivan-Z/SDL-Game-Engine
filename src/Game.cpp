@@ -3,6 +3,9 @@
 #include "./Constants.h"
 #include "./Game.h"
 
+EntityManager manager;
+SDL_Renderer* Game::renderer;
+
 Game::Game() {
 	this->isRunning = false;
 }
@@ -10,9 +13,6 @@ Game::Game() {
 bool Game::IsRunning() const {
 	return this->isRunning;
 }
-
-glm::vec2 projectilePosition = glm::vec2(0.0f, 0.0f);
-glm::vec2 projectileVelocity = glm::vec2(20.0f, 20.0f);
 
 void Game::Initialize(int width, int height) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -58,26 +58,15 @@ void Game::Update() {
 	// Upper bound on delta time of 0.05
 	deltaTime = deltaTime > 0.05f ? 0.05f : deltaTime;
 
+	// TODO; Call manager update
 	ticksSinceLastFrame = SDL_GetTicks();
-
-	projectilePosition = glm::vec2(
-			projectilePosition.x + projectileVelocity.x * deltaTime,
-			projectilePosition.y + projectileVelocity.y * deltaTime);
 }
 
 void Game::Render() {
 	SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_Rect projectile = {
-	       	(int) projectilePosition.x,
-		(int) projectilePosition.y,
-		10,
-		10};
-	
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(renderer, &projectile);
-
+	// TODO: Call manager render
 	SDL_RenderPresent(renderer);
 }
 

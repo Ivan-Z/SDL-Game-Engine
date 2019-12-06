@@ -3,8 +3,9 @@
 
 #include <string>
 #include <vector>
+#include "./Component.h"
+#include "./EntityManager.h"
 
-class Component;
 class EntityManager;
 
 class Entity {

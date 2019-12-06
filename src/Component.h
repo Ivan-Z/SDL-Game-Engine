@@ -8,7 +8,7 @@ class Component {
 		Entity* owner;
 		virtual ~Component();
 		virtual void Initialize();
-		virtual void Update(float deltaTime());
+		virtual void Update(float deltaTime);
 		virtual void Render();
 };
 

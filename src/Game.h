@@ -4,6 +4,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include "./Entity.h"
+#include "./Component.h"
+#include "./EntityManager.h"
 
 class Game {
 	public:
@@ -14,13 +17,14 @@ class Game {
 		void Update();
 		void Render();
 		void Destroy();
+		void LoadLevel(int levelNumber);
 		bool IsRunning() const;
-
+			
+		static SDL_Renderer* renderer;
 	private:
 		bool isRunning;
 		int ticksSinceLastFrame;
 		SDL_Window *window;
-		SDL_Renderer *renderer;
 };
 
 #endif

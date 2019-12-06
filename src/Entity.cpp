@@ -11,7 +11,7 @@ Entity::Entity(EntityManager& manager, std::string name): manager(manager), name
 
 void Entity::Update(float deltaTime) {
 	for (auto& component: components) {
-		component->update(deltaTime);
+		component->Update(deltaTime);
 	}
 }
 
