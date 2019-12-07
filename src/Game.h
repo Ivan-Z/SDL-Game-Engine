@@ -23,7 +23,7 @@ class Game {
 		static SDL_Renderer* renderer;
 	private:
 		bool isRunning;
-		int ticksSinceLastFrame;
+		int ticksSinceLastFrame = 0;
 		SDL_Window *window;
 };
 

@@ -13,11 +13,11 @@ class TransformComponent: public Component {
 		void Update(float deltaTime) override;
 		void Render() override;
 	private:
-	          glm::vec2 position;
-                  glm::vec2 velocity;
-                  int width;
-                  int height;
-                  int scale;
+		glm::vec2 position;
+                glm::vec2 velocity;
+                int width;
+                int height;
+		int scale;
 };
 
 #endif

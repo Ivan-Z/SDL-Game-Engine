@@ -6,6 +6,8 @@ TransformComponent::TransformComponent(int posX, int posY, int velX, int velY, i
 	width = w;
 	height = h;
 	scale = s;
+
+	name = "Transform";
 }
  	
  void TransformComponent::Update(float deltaTime) {

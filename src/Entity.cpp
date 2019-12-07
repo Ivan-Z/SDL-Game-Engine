@@ -1,3 +1,4 @@
+#include <iostream>
 #include "./Entity.h"
 
 Entity::Entity(EntityManager& manager): manager(manager) {
@@ -27,5 +28,12 @@ void Entity::Destroy() {
 
 bool Entity::IsActive() const {
 	return isActive;
+}
+
+            
+void Entity::PrintComponents() const {
+	for (auto component: components) {
+		std::cout << "\t" << "Component: " << component->GetName() << std::endl; 
+	}
 }
 

@@ -4,12 +4,16 @@
 #include "./Game.h"
 #include "./components/TransformComponent.cpp"
 
+#include <iostream>
+
 EntityManager manager;
 SDL_Renderer* Game::renderer;
 
 Game::Game() {
 	this->isRunning = false;
 }
+
+Game::~Game() {}
 
 bool Game::IsRunning() const {
 	return this->isRunning;
@@ -30,13 +34,20 @@ void Game::Initialize(int width, int height) {
 	if (!renderer) std::cerr << "Error creating SDL renderer." << std::endl;
 
 	LoadLevel(0);
-
+	manager.PrintEntities();
 	isRunning = true;
 }
 
 void Game::LoadLevel(int levelNumber) {
 	Entity& newEntity(manager.AddEntity("projectile"));
 	newEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+	
+	Entity& newEntity1(manager.AddEntity("projectile1"));
+	newEntity1.AddComponent<TransformComponent>(400, 400, -20, -20, 64, 56, 1);
+
+	Entity& newEntity2(manager.AddEntity("projectile2"));
+	newEntity2.AddComponent<TransformComponent>(0, 0, 25, 50, 32, 32, 1);
+
 }
 
 void Game::ProccessInput() {
