@@ -12,7 +12,7 @@ class TransformComponent: public Component {
 		void Initialize() override {};
 		void Update(float deltaTime) override;
 		void Render() override;
-	private:
+	//TODO: Add getters
 		glm::vec2 position;
                 glm::vec2 velocity;
                 int width;

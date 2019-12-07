@@ -3,11 +3,11 @@
 #include "./Constants.h"
 #include "./Game.h"
 #include "./components/TransformComponent.cpp"
-
-#include <iostream>
+#include "./components/SpriteComponent.h"
 
 EntityManager manager;
 SDL_Renderer* Game::renderer;
+AssetManager* Game::assetManager = new AssetManager(&manager);
 
 Game::Game() {
 	this->isRunning = false;
@@ -39,9 +39,15 @@ void Game::Initialize(int width, int height) {
 }
 
 void Game::LoadLevel(int levelNumber) {
-	Entity& newEntity(manager.AddEntity("projectile"));
+	// Add assets to the asset manager
+	std::string textureFilePath = "./assets/images/tank-big-right.png";
+	assetManager->AddTexture("tank-image", textureFilePath.c_str());
+
+	// Add entities and their components to entity manager
+	Entity& newEntity(manager.AddEntity("tank"));
 	newEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
-	
+	newEntity.AddComponent<SpriteComponent>("tank-image");
+
 	Entity& newEntity1(manager.AddEntity("projectile1"));
 	newEntity1.AddComponent<TransformComponent>(400, 400, -20, -20, 64, 56, 1);
 

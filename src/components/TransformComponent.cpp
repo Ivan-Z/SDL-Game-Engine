@@ -16,13 +16,5 @@ TransformComponent::TransformComponent(int posX, int posY, int velX, int velY, i
  }      
 
 void TransformComponent::Render() {
-	SDL_Rect transformRectangle = {
-				(int) position.x,
-				(int) position.y,
-				width,
-				height
-	};
-	SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255,255);
-	SDL_RenderFillRect(Game::renderer, &transformRectangle);
 }
 
