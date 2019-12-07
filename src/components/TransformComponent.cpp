@@ -1,6 +1,6 @@
-#include "./TransformCompoent.h"
+#include "./TransformComponent.h"
 
-TransformComponent:TransformComponent(int posX, int posY, int velX, int velY, int w, int h, int s) {
+TransformComponent::TransformComponent(int posX, int posY, int velX, int velY, int w, int h, int s) {
 	position = glm::vec2(posX, posY);
 	velocity = glm::vec2(velX, velY);
 	width = w;
@@ -8,12 +8,12 @@ TransformComponent:TransformComponent(int posX, int posY, int velX, int velY, in
 	scale = s;
 }
  	
- void TransformComponent::Update(float deltaTime) override {
+ void TransformComponent::Update(float deltaTime) {
  	position.x += velocity.x * deltaTime;
-	position.y += velcoity.y * deltaTime;
+	position.y += velocity.y * deltaTime;
  }      
 
-void TansformComponent::Render() {
+void TransformComponent::Render() {
 	SDL_Rect transformRectangle = {
 				(int) position.x,
 				(int) position.y,
