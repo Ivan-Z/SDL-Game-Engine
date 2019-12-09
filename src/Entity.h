@@ -35,6 +35,11 @@ class Entity {
 			return static_cast<T*>(componentTypeMap[&typeid(T)]);
 		}
 
+		template<typename T>
+		bool hasComponent() {
+			return componentTypeMap.count(&typeid(T)) != 0;
+		}
+	
 	private:
 		EntityManager& manager;
 		bool isActive;
