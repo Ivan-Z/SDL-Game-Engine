@@ -16,7 +16,7 @@ class Game {
 		Game();
 		~Game();
 		void Initialize(int width, int height);
-		void ProccessInput();
+		void ProcessInput();
 		void Update();
 		void Render();
 		void Destroy();

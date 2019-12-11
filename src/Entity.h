@@ -36,7 +36,7 @@ class Entity {
 		}
 
 		template<typename T>
-		bool hasComponent() {
+		bool HasComponent() {
 			return componentTypeMap.count(&typeid(T)) != 0;
 		}
 	

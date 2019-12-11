@@ -5,6 +5,8 @@
 #include "./components/TransformComponent.cpp"
 #include "./components/SpriteComponent.h"
 
+
+// TODO; Add to header file
 EntityManager manager;
 SDL_Renderer* Game::renderer;
 AssetManager* Game::assetManager = new AssetManager(&manager);
@@ -56,7 +58,7 @@ void Game::LoadLevel(int levelNumber) {
 
 }
 
-void Game::ProccessInput() {
+void Game::ProcessInput() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
 
