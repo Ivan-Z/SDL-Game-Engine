@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include "../TextureManager.h"
 #include "../AssetManager.h"
+#include "../Animation.h"
 #include "./TransformComponent.h"
 
 class SpriteComponent: public Component {
@@ -12,10 +13,46 @@ class SpriteComponent: public Component {
 	public:
 		SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
-		SpriteComponent(const char* filePath) {
-			SetTexture(filePath);
-			
+		SpriteComponent(std::string assetTextureId) {
+			SetTexture(assetTextureId);
+			isAnimated = false;
+			isFixed = false;	
 			name = "Sprite";
+		}
+
+		SpriteComponent(std::string assetTextureId, int numFrames, int animationSpeed, bool hasDirection, bool isFixed): isAnimated(true), numFrames(numFrames), animationSpeed(animationSpeed), isFixed(isFixed) {
+			isAnimated = true;
+
+			if (hasDirection) {
+				Animation downAnimation = Animation(0, numFrames, animationSpeed);
+				Animation rightAnimation = Animation(1, numFrames, animationSpeed);
+				Animation leftAnimation = Animation(2, numFrames, animationSpeed);
+				Animation upAnimation = Animation(3, numFrames, animationSpeed);
+
+				animations.emplace("DownAnimation", downAnimation);
+				animations.emplace("RightAnimation", rightAnimation);
+				animations.emplace("LeftAnimation", leftAnimation);
+				animations.emplace("UpAnimation", upAnimation);
+				
+				animationIndex = 0;
+				currentAnimationName = "DownAnimation";
+			} else {
+				Animation singleAnimation = Animation(0, numFrames, animationSpeed);
+				animations.emplace("SingleAnimation", singleAnimation);
+				animationIndex = 0;
+				currentAnimationName = "SingleAnimation";
+			}
+			Play(currentAnimationName);
+			SetTexture(assetTextureId);
+
+			name = "Sprite";	
+		}
+
+		void Play(std::string animationName) {
+			numFrames = animations[animationName].numFrames;
+			animationIndex = animations[animationName].index;
+			animationSpeed = animations[animationName].animationSpeed;
+			currentAnimationName = animationName;	
 		}
 
 		void SetTexture(std::string assetTextureId){
@@ -31,8 +68,13 @@ class SpriteComponent: public Component {
 		}
 
 		void Update(float deltaTime) override {
-			destinationRectangle.x = (int) entityTransform->position.x;
-			destinationRectangle.y = (int) entityTransform->position.y;
+			if (isAnimated) {
+				sourceRectangle.x = sourceRectangle.w * static_cast<int>((SDL_GetTicks() / animationSpeed) % numFrames);
+			}
+			sourceRectangle.y = animationIndex * entityTransform->height;
+
+			destinationRectangle.x = static_cast<int>(entityTransform->position.x);
+			destinationRectangle.y = static_cast<int>(entityTransform->position.y);
 			destinationRectangle.w = entityTransform->width * entityTransform->scale;
 			destinationRectangle.h = entityTransform->height * entityTransform->scale;
 		}
@@ -46,6 +88,13 @@ class SpriteComponent: public Component {
 		SDL_Rect sourceRectangle;
 		SDL_Rect destinationRectangle;
 		TransformComponent* entityTransform;
+		bool isAnimated;
+		int numFrames;
+		int animationSpeed;
+		bool isFixed;
+		std::map<std::string, Animation> animations;
+		std::string currentAnimationName;
+		unsigned int animationIndex;
 };
 
 #endif

@@ -42,19 +42,21 @@ void Game::Initialize(int width, int height) {
 
 void Game::LoadLevel(int levelNumber) {
 	// Add assets to the asset manager
-	std::string textureFilePath = "./assets/images/tank-big-right.png";
-	assetManager->AddTexture("tank-image", textureFilePath.c_str());
+	assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
+	assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
 
 	// Add entities and their components to entity manager
-	Entity& newEntity(manager.AddEntity("tank"));
-	newEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
-	newEntity.AddComponent<SpriteComponent>("tank-image");
+	Entity& tankEntity(manager.AddEntity("tank"));
+	tankEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+	tankEntity.AddComponent<SpriteComponent>("tank-image");
 
-	Entity& newEntity1(manager.AddEntity("projectile1"));
-	newEntity1.AddComponent<TransformComponent>(400, 400, -20, -20, 64, 56, 1);
+	Entity& chopperEntity(manager.AddEntity("chopper"));
+	chopperEntity.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
+	chopperEntity.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
 
-	Entity& newEntity2(manager.AddEntity("projectile2"));
-	newEntity2.AddComponent<TransformComponent>(0, 0, 25, 50, 32, 32, 1);
+	Entity& radarEntity(manager.AddEntity("radar"));
+	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
+	radarEntity.AddComponent<SpriteComponent>("radar-imag", 8, 150, false, true);
 
 }
 
