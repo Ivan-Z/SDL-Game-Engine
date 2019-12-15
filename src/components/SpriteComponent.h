@@ -14,6 +14,8 @@ class SpriteComponent: public Component {
 
 		SpriteComponent(const char* filePath) {
 			SetTexture(filePath);
+			
+			name = "Sprite";
 		}
 
 		void SetTexture(std::string assetTextureId){
