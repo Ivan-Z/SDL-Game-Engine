@@ -10,6 +10,7 @@
 class SpriteComponent: public Component {
 
 	// TODO: Move to cpp file
+	// TODO: Possible bug with animationIndex not being updated
 	public:
 		SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
@@ -94,7 +95,7 @@ class SpriteComponent: public Component {
 		bool isFixed;
 		std::map<std::string, Animation> animations;
 		std::string currentAnimationName;
-		unsigned int animationIndex;
+		unsigned int animationIndex = 0;
 };
 
 #endif
