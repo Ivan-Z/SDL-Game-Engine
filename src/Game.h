@@ -22,9 +22,10 @@ class Game {
 		void Destroy();
 		void LoadLevel(int levelNumber);
 		bool IsRunning() const;
-			
+				
 		static SDL_Renderer* renderer;
 		static AssetManager* assetManager;
+		static SDL_Event event;
 	private:
 		bool isRunning;
 		int ticksSinceLastFrame = 0;
