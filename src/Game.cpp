@@ -4,7 +4,7 @@
 #include "./Game.h"
 #include "./components/TransformComponent.cpp"
 #include "./components/SpriteComponent.h"
-
+#include "./components/KeyboardControlComponent.h"
 
 // TODO; Add to header file
 // TODO Throw error if asset image not found or if asset ID not in asset manager
@@ -55,6 +55,7 @@ void Game::LoadLevel(int levelNumber) {
 	Entity& chopperEntity(manager.AddEntity("chopper"));
 	chopperEntity.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
 	chopperEntity.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
+	chopperEntity.AddComponent<KeyboardControlComponent>("up", "down", "left", "right", "space");
 
 	Entity& radarEntity(manager.AddEntity("radar"));
 	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
