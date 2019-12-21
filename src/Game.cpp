@@ -58,16 +58,16 @@ void Game::LoadLevel(int levelNumber) {
 	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
 
 	// Add entities and their components to entity manager
-	Entity& tankEntity(manager.AddEntity("tank"));
+	Entity& tankEntity(manager.AddEntity("tank", ENEMY));
 	tankEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
 	tankEntity.AddComponent<SpriteComponent>("tank-image");
 
-	Entity& chopperEntity(manager.AddEntity("chopper"));
+	Entity& chopperEntity(manager.AddEntity("chopper", PLAYER));
 	chopperEntity.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
 	chopperEntity.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
 	chopperEntity.AddComponent<KeyboardControlComponent>("up", "down", "left", "right", "space");
 
-	Entity& radarEntity(manager.AddEntity("radar"));
+	Entity& radarEntity(manager.AddEntity("radar", UI));
 	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
 	radarEntity.AddComponent<SpriteComponent>("radar-image", 8, 150, false, true);
 
