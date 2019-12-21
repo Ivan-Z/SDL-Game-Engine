@@ -2,6 +2,7 @@
 #include "../lib/glm/glm.hpp"
 #include "./Constants.h"
 #include "./Game.h"
+#include "./Map.h"
 #include "./components/TransformComponent.cpp"
 #include "./components/SpriteComponent.h"
 #include "./components/KeyboardControlComponent.h"
@@ -12,6 +13,8 @@ EntityManager manager;
 SDL_Renderer* Game::renderer;
 AssetManager* Game::assetManager = new AssetManager(&manager);
 SDL_Event Game::event;
+Map* map;
+
 
 Game::Game() {
 	this->isRunning = false;
@@ -43,10 +46,17 @@ void Game::Initialize(int width, int height) {
 }
 
 void Game::LoadLevel(int levelNumber) {
+
+
 	// Add assets to the asset manager
 	assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
 	assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
 	assetManager->AddTexture("radar-image", std::string("./assets/images/radar.png").c_str());
+	assetManager->AddTexture("jungle-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
+
+	map = new Map("jungle-tiletexture", 2, 32);
+	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
+
 	// Add entities and their components to entity manager
 	Entity& tankEntity(manager.AddEntity("tank"));
 	tankEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
