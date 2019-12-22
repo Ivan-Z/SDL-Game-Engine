@@ -8,6 +8,9 @@ extern EntityManager manager;
 Map::Map(std::string textureId, int scale, int tileSize): textureId(textureId), scale(scale), tileSize(tileSize) {}
 
 void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
+	width = mapSizeX;
+	height = mapSizeY;
+	
 	std::fstream mapFile;
 	mapFile.open(filePath);
 
@@ -30,3 +33,12 @@ void Map::AddTile(int sourceRectX, int sourceRectY, int x, int y) {
 	Entity& newTile(manager.AddEntity("Tile", TILEMAP));
 	newTile.AddComponent<TileComponent>(sourceRectX, sourceRectY, x, y, tileSize, scale, textureId);
 }
+
+int Map::GetWidth() {
+	return width * scale * tileSize;
+}
+
+int Map::GetHeight() {
+	return height * scale * tileSize;
+}
+

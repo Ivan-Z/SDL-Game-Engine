@@ -8,6 +8,7 @@
 #include "./Component.h"
 #include "./EntityManager.h"
 #include "./AssetManager.h"
+#include "./Map.h"
 
 class AssetManager;
 
@@ -28,6 +29,7 @@ class Game {
 		static AssetManager* assetManager;
 		static SDL_Event event;
 		static SDL_Rect camera;
+		static Map* map;
 	private:
 		bool isRunning;
 		int ticksSinceLastFrame = 0;

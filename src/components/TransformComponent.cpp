@@ -1,6 +1,7 @@
 #include "./TransformComponent.h"
 #include "../Constants.h"
-
+#include "../Game.h"
+#include <iostream>
 TransformComponent::TransformComponent(int posX, int posY, int velX, int velY, int w, int h, int s) {
 	position = glm::vec2(posX, posY);
 	velocity = glm::vec2(velX, velY);
@@ -19,14 +20,14 @@ TransformComponent::TransformComponent(int posX, int posY, int velX, int velY, i
 	// Check Bounds of screen
 	// TODO:Refactor
 
-	if (position.x > 800 - width) {
-		position.x = WINDOW_WIDTH - width;
+	if (position.x > Game::map->GetWidth() - width) {
+		position.x = Game::map->GetWidth() - width;
 	} else if (position.x < 0) {
 		position.x = 0;
 	}
 
-	if (position.y > WINDOW_HEIGHT - height) {
-		position.y = WINDOW_HEIGHT - height;
+	if (position.y > Game::map->GetHeight() - height) {
+		position.y = Game::map->GetHeight() - height;
 	} else if (position.y < 0) {
 		position.y = 0;
 	}
