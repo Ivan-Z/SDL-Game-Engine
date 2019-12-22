@@ -112,6 +112,11 @@ void Game::HandleCameraMovement() {
 	
 	camera.x = mainPlayerTransform->position.x - (WINDOW_WIDTH / 2);
 	camera.y = mainPlayerTransform->position.y - (WINDOW_HEIGHT / 2);
+
+	camera.x = camera.x < 0 ? 0 : camera.x;
+	camera.x = camera.x > camera.w ? camera.w : camera.x;
+	camera.y = camera.y < 0 ? 0 : camera.y;
+	camera.y = camera.y > camera.h ? camera.h : camera.y;
 }
 
 void Game::Render() {

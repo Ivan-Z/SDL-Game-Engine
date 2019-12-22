@@ -19,7 +19,7 @@ TransformComponent::TransformComponent(int posX, int posY, int velX, int velY, i
 	// Check Bounds of screen
 	// TODO:Refactor
 
-	if (position.x > WINDOW_WIDTH - width) {
+	if (position.x > 800 - width) {
 		position.x = WINDOW_WIDTH - width;
 	} else if (position.x < 0) {
 		position.x = 0;

@@ -74,8 +74,8 @@ class SpriteComponent: public Component {
 			}
 			sourceRectangle.y = animationIndex * entityTransform->height;
 
-			destinationRectangle.x = static_cast<int>(entityTransform->position.x) - Game::camera.x ;
-			destinationRectangle.y = static_cast<int>(entityTransform->position.y) - Game::camera.y;
+			destinationRectangle.x = static_cast<int>(entityTransform->position.x) - (isFixed ? 0 : Game::camera.x);
+			destinationRectangle.y = static_cast<int>(entityTransform->position.y) - (isFixed ? 0 : Game::camera.y);
 			destinationRectangle.w = entityTransform->width * entityTransform->scale;
 			destinationRectangle.h = entityTransform->height * entityTransform->scale;
 		}
