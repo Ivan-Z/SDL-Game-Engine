@@ -28,6 +28,8 @@ class TileComponent: public Component{
 	
 			position.x = x;
 			position.y = y;
+
+			name = "Tile";
 		}
 
 
@@ -36,7 +38,8 @@ class TileComponent: public Component{
 		}
 
 		void Update(float deltaTime) override {
-			// Update tile base on camera
+			destinationRectangle.x = position.x - Game::camera.x;
+			destinationRectangle.y = position.y - Game::camera.y;
 		}
 
 		void Render() override {
