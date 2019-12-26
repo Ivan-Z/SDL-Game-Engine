@@ -18,12 +18,8 @@ class KeyboardControlComponent: public Component {
 		TransformComponent* entityTransform;
 		SpriteComponent* entitySprite;
 
-		KeyboardControlComponent() {
-			
-		}
-
 		KeyboardControlComponent(std::string upKey, std::string downKey, std::string leftKey, std::string rightKey, std::string shootKey): upKey(GetSDLKeyStringCode(upKey)), downKey(GetSDLKeyStringCode(downKey)),leftKey(GetSDLKeyStringCode(leftKey)), rightKey(GetSDLKeyStringCode(rightKey)), shootKey(GetSDLKeyStringCode(shootKey)) {
-			
+			name = "Keyboard";			
 		}
 
 		std::string GetSDLKeyStringCode(std::string key) {
