@@ -105,14 +105,18 @@ void Game::Update() {
 void Game::HandleCameraMovement() {
 	TransformComponent* mainPlayerTransform = player.GetComponent<TransformComponent>();
 	
+	std::cout << "Main Player position: " << mainPlayerTransform->position.x << ", " << mainPlayerTransform->position.y << std::endl;
+
 	camera.x = mainPlayerTransform->position.x - (WINDOW_WIDTH / 2);
 	camera.y = mainPlayerTransform->position.y - (WINDOW_HEIGHT / 2);
 
 	camera.x = camera.x < 0 ? 0 : camera.x;
-	camera.x = camera.x > camera.w ? camera.w : camera.x;
+	camera.x = camera.x > (Game::map->GetWidth() / 2) ? (Game::map->GetWidth() / 2) : camera.x;
 	camera.y = camera.y < 0 ? 0 : camera.y;
-	//TODO: Fix camera bug
-	camera.y = camera.y > camera.h ? camera.h : camera.y;
+	//TODO: Hacky fix for camera bug
+	camera.y = camera.y > (Game::map->GetHeight() / 2) + mainPlayerTransform->height ? (Game::map->GetHeight() / 2) + mainPlayerTransform->height : camera.y;
+	
+	std::cout << "Camera  position: " << camera.x << ", " << camera.y << std::endl;
 }
 
 void Game::Render() {
