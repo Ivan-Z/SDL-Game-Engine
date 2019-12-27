@@ -18,6 +18,7 @@ class EntityManager  {
 		unsigned int GetEntityCount() const;	
 		void PrintEntities() const;
 		CollisionType CheckCollisions() const;
+		void DestroyInactiveEntities();
 	private:
 		std::vector<Entity*> entities;
 
