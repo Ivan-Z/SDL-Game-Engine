@@ -6,6 +6,7 @@
 #include "./components/TransformComponent.cpp"
 #include "./components/SpriteComponent.h"
 #include "./components/KeyboardControlComponent.h"
+#include "./components/ColliderComponent.h"
 
 // TODO; Add to header file
 // TODO Throw error if asset image not found or if asset ID not in asset manager
@@ -56,17 +57,19 @@ void Game::LoadLevel(int levelNumber) {
 	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
 
 	// Add entities and their components to entity manager
-//	Entity& tankEntity(manager.AddEntity("tank", ENEMY));
-//	tankEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
-//	tankEntity.AddComponent<SpriteComponent>("tank-image");
+	Entity& tankEntity(manager.AddEntity("tank", ENEMY));
+	tankEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+	tankEntity.AddComponent<SpriteComponent>("tank-image");
+	tankEntity.AddComponent<ColliderComponent>("enemy", 0, 0, 32, 32);
 
 	player.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
 	player.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
 	player.AddComponent<KeyboardControlComponent>("up", "down", "left", "right", "space");
+	player.AddComponent<ColliderComponent>("player", 240, 106, 32, 32);
 
-//	Entity& radarEntity(manager.AddEntity("radar", UI));
-//	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
-//	radarEntity.AddComponent<SpriteComponent>("radar-image", 8, 150, false, true);
+	Entity& radarEntity(manager.AddEntity("radar", UI));
+	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
+	radarEntity.AddComponent<SpriteComponent>("radar-image", 8, 150, false, true);
 }
 
 void Game::ProcessInput() {
@@ -100,13 +103,12 @@ void Game::Update() {
 	manager.Update(deltaTime);
 
 	HandleCameraMovement();
+	CheckCollisions();
 }
 
 void Game::HandleCameraMovement() {
 	TransformComponent* mainPlayerTransform = player.GetComponent<TransformComponent>();
 	
-	std::cout << "Main Player position: " << mainPlayerTransform->position.x << ", " << mainPlayerTransform->position.y << std::endl;
-
 	camera.x = mainPlayerTransform->position.x - (WINDOW_WIDTH / 2);
 	camera.y = mainPlayerTransform->position.y - (WINDOW_HEIGHT / 2);
 
@@ -116,7 +118,13 @@ void Game::HandleCameraMovement() {
 	//TODO: Hacky fix for camera bug
 	camera.y = camera.y > (Game::map->GetHeight() / 2) + mainPlayerTransform->height ? (Game::map->GetHeight() / 2) + mainPlayerTransform->height : camera.y;
 	
-	std::cout << "Camera  position: " << camera.x << ", " << camera.y << std::endl;
+}
+
+void Game::CheckCollisions() {
+	std::string collisionTagType = manager.CheckEntityCollisions(player);
+	if (collisionTagType.compare("enemy") == 0) {
+		isRunning = false;
+	}
 }
 
 void Game::Render() {
