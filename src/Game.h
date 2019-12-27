@@ -31,6 +31,7 @@ class Game {
 		static SDL_Event event;
 		static SDL_Rect camera;
 		static Map* map;
+		static bool showColliders;
 	private:
 		bool isRunning;
 		int ticksSinceLastFrame = 0;

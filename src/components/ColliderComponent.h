@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include "../Game.h"
 #include "../EntityManager.h"
+#include "../TextureManager.h"
 #include "./TransformComponent.h"
 
 class ColliderComponent: public Component {
@@ -16,6 +17,7 @@ class ColliderComponent: public Component {
 
 		ColliderComponent(std::string colliderTag, int x, int y, int width, int height): colliderTag(colliderTag), collider({x, y, width, height}) {
 			name = "Collider";
+			texture = Game::assetManager->GetTexture("collider-box");
 		}
 
 		void Initialize() override {
@@ -34,6 +36,16 @@ class ColliderComponent: public Component {
 			destinationRectangle.x = collider.x - Game::camera.x;
 			destinationRectangle.y = collider.y - Game::camera.y;
 		}
+		
+		void Render() override {
+			if (Game::showColliders) {
+				TextureManager::Draw(texture, sourceRectangle, destinationRectangle, SDL_FLIP_NONE);
+			}
+		}
+
+	private:
+		SDL_Texture* texture;
+
 };
 
 
