@@ -25,6 +25,8 @@ class Game {
 		bool IsRunning() const;
 		void HandleCameraMovement();
 		void CheckCollisions();
+		void ProccessNextLevel(int nextLevel);
+		void ProccessGameOver();
 
 		static SDL_Renderer* renderer;
 		static AssetManager* assetManager;
