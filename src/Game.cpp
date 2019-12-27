@@ -7,6 +7,7 @@
 #include "./components/SpriteComponent.h"
 #include "./components/KeyboardControlComponent.h"
 #include "./components/ColliderComponent.h"
+#include "./components/LabelComponent.h"
 
 // TODO; Add to header file
 // TODO Throw error if asset image not found or if asset ID not in asset manager
@@ -33,7 +34,12 @@ void Game::Initialize(int width, int height) {
 		std::cerr << "Error initializing SDL!" << std::endl;
 		return;
 	}
-
+	
+	if (TTF_Init() != 0) {
+		std::cerr << "Error initializing SDL TTF!" << std::endl;
+		return;
+	}
+	
 	window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_BORDERLESS);
 
 	if (!window) std::cerr << "Error creating SDL window." << std::endl;
@@ -56,7 +62,8 @@ void Game::LoadLevel(int levelNumber) {
 	assetManager->AddTexture("jungle-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
 	assetManager->AddTexture("collider-box", std::string("./assets/images/collision-texture.png").c_str());
 	assetManager->AddTexture("heliport-image", std::string("./assets/images/heliport.png").c_str());
-
+	assetManager->AddFont("charriot-font", std::string("./assets/fonts/charriot.ttf").c_str(), 14);
+		
 	map = new Map("jungle-tiletexture", 2, 32);
 	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
 
@@ -79,6 +86,10 @@ void Game::LoadLevel(int levelNumber) {
 	heliport.AddComponent<TransformComponent>(470, 420, 0, 0, 32, 32, 1);
 	heliport.AddComponent<SpriteComponent>("heliport-image");
 	heliport.AddComponent<ColliderComponent>("LEVEL_COMPLETE", 470, 420, 32, 32);
+	
+	Entity& labelLevelName(manager.AddEntity("LabelLevelName", UI));
+	labelLevelName.AddComponent<LabelComponent>(10, 10, "First level...", "charriot-font", WHITE_COLOR);
+
 }
 
 void Game::ProcessInput() {
