@@ -25,7 +25,6 @@ void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
 			mapFile.ignore();
 		}
 	}
-
 	mapFile.close();
 }
 
