@@ -61,7 +61,7 @@ void Game::LoadLevel(int levelNumber) {
 	std::string levelName = "Level" + std::to_string(levelNumber);
 	lua.script_file("./assets/scripts/" + levelName + ".lua");
 
-	// Loads assets from Lua config file
+	// Load assets from Lua config file
 	sol::table levelData = lua[levelName];
 	sol::table levelAssets = levelData["assets"];
 
@@ -77,11 +77,16 @@ void Game::LoadLevel(int levelNumber) {
 			std::string assetId = asset["id"];
 			std::string assetFile = asset["file"];
 			assetManager->AddTexture(assetId, assetFile.c_str());
+		} else if (assetType.compare("font") == 0) {
+			std::string assetId = asset["id"];
+			std::string assetFile = asset["file"];
+			int fontSize = asset["fontSize"];
+			assetManager->AddFont(assetId, assetFile.c_str(), fontSize);
 		}
 		assetIndex++;
 	}
 	
-	// Loads map from Lua config file
+	// Load map from Lua config file
 	sol::table levelMap = levelData["map"];
 	std::string mapTextureId = levelMap["textureAssetId"];
 	std::string mapFile = levelMap["file"];
@@ -89,6 +94,9 @@ void Game::LoadLevel(int levelNumber) {
 	map = new Map(mapTextureId, static_cast<int>(levelMap["scale"]), static_cast<int>(levelMap["tileSize"]));
 
 	map->LoadMap(mapFile, static_cast<int>(levelMap["mapSizeX"]), static_cast<int>(levelMap["mapSizeY"]));
+
+	// Load entities and components form Lua config file
+	
 }
 
 void Game::ProcessInput() {
