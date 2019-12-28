@@ -19,6 +19,7 @@ class EntityManager  {
 		void PrintEntities() const;
 		CollisionType CheckCollisions() const;
 		void DestroyInactiveEntities();
+		Entity* GetEntityByName(std::string name);
 	private:
 		std::vector<Entity*> entities;
 

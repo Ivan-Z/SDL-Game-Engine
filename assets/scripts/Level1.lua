@@ -40,9 +40,10 @@ Level1 = {
         [29] = { type="texture", id = "start-texture", file = "./assets/images/start.png" },
         [30] = { type="texture", id = "heliport-texture", file = "./assets/images/heliport.png" },
         [31] = { type="texture", id = "bullet-friendly-texture", file = "./assets/images/bullet-friendly.png" },
-        [32] = { type="texture", id = "radar-texture", file = "./assets/images/radar.png" },
-        [33] = { type="sound", id = "blades-sound", file = "./assets/sounds/blades.wav" },
-        [33] = { type="font", id = "charriot-font", file = "./assets/fonts/charriot.ttf", fontSize = 14 }
+        [32] = { type="texture", id = "collider-box", file = "./assets/images/collision-texture.png" },
+        [33] = { type="texture", id = "radar-texture", file = "./assets/images/radar.png" },
+        [34] = { type="sound", id = "blades-sound", file = "./assets/sounds/blades.wav" },
+        [35] = { type="font", id = "charriot-font", file = "./assets/fonts/charriot.ttf", fontSize = 14 }
     },
 
     ----------------------------------------------------

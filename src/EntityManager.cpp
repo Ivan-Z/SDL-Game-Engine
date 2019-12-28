@@ -100,3 +100,12 @@ CollisionType EntityManager::CheckCollisions() const {
 	}
 	return NO_COLLISION;
 }
+
+Entity* EntityManager::GetEntityByName(std::string name) {
+	for (auto& entity: entities) {
+		if (entity->name.compare(name) == 0) {
+			return entity;
+		}
+	}
+	return NULL;;
+}
